@@ -7,6 +7,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 
 public class ProcessorUtil {
     private ProcessorUtil() {
@@ -26,6 +27,12 @@ public class ProcessorUtil {
      */
     public static DeclaredType getParameterDeclaredType(Element aElement, int i) {
         return (DeclaredType) getParameterTypes(aElement).get(i);
+    }
+
+    public static List<? extends TypeVariable> getTypeVariables(Element aElement) {
+        // http://stackoverflow.com/questions/31255098/find-method-arguments-of-annotated-method-using-java-annotation-processor
+        ExecutableType executableType = (ExecutableType) aElement.asType();
+        return executableType.getTypeVariables();
     }
 
     public static Element getPackageElement(Element aElement) {
